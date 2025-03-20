@@ -1,6 +1,8 @@
 import React from 'react';
 import MatchTeamSection from '../MatchTeamSection/MatchTeamSection.tsx';
-import { ButtonContainer, MatchHeader, MatchSubheader, OpenMatchButton, QuickPredictButton, StyledMatchCard } from './MatchCard.styles.tsx';
+import { ButtonContainer, MatchHeader, MatchSubheader, OpenMatchButton, DetailsButton, ScoreBar, StyledMatchCard } from './MatchCard.styles.tsx';
+import ScoreContainer from '../ScoreContainer/ScoreContainer.tsx';
+import PointsIndicator from '../PointsIndicator/PointsIndicator.tsx';
 
 interface IMatchCard {
     match: Match
@@ -23,16 +25,31 @@ const MatchCard: React.FC<IMatchCard> = ({ match }) => {
         .replace(" at ", " - ");
     }
 
+    let cardHeader: string = "Matchday"
+    if (match.group != null) {
+        cardHeader = match.group.name
+    }
+
+    if (match.round != null) {
+        cardHeader = match.round.name
+    }
+
     return (
         <StyledMatchCard>
-            <MatchHeader>Group A</MatchHeader>
+            <MatchHeader>{cardHeader}</MatchHeader>
             <MatchSubheader>{formattedDate}</MatchSubheader>
             <MatchTeamSection key={match.id} homeTeam={match?.homeTeam} awayTeam={match?.awayTeam} />
 
             <ButtonContainer>
-                <QuickPredictButton>Predict</QuickPredictButton>
-                <OpenMatchButton>More</OpenMatchButton>
+                <DetailsButton>More Info</DetailsButton>
             </ButtonContainer>
+
+            <ScoreBar>
+                <ScoreContainer type={"prediction"} homeGoals={match?.prediction?.homeGoals} awayGoals={match?.prediction?.awayGoals}/>
+                <ScoreContainer type={"result"} homeGoals={match?.result?.homeGoals} awayGoals={match?.result?.awayGoals}/>
+            </ScoreBar>
+
+            <PointsIndicator points={1} size={80} strokeWidth={6} />
         </StyledMatchCard>
     );
 }

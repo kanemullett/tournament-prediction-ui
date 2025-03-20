@@ -6,7 +6,7 @@ export const StyledMatchCard = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 23%;
+    width: 30%;
     border-radius: 12px;
     border: 1px solid #e0e0e0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -41,7 +41,7 @@ export const ButtonContainer = styled.div`
 `;
 
 // Black filled button
-export const QuickPredictButton = styled.button`
+export const DetailsButton = styled.button`
     background-color: #333;
     color: white;
     font-size: 0.9rem;
@@ -70,3 +70,9 @@ export const OpenMatchButton = styled.button`
     cursor: pointer;
     transition: background 0.3s, color 0.3s;
 `;
+
+export const ScoreBar = styled.div`
+    display: flex;
+    gap: 30px;
+    margin-top: 12px;
+`
