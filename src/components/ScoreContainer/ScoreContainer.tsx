@@ -4,15 +4,15 @@ import ScoreBox from '../ScoreBox/ScoreBox.tsx';
 
 interface IScoreContainer {
     type: string
-    homeGoals: number
-    awayGoals: number
+    homeGoals?: number
+    awayGoals?: number
 }
 
-const ScoreContainer: React.FC<IScoreContainer> = ({ type, homeGoals, awayGoals }) => {
+const ScoreContainer = (props: IScoreContainer) => {
     return (
         <StyledScoreContainer>
-            <ScoreHeader>{type}</ScoreHeader>
-            <ScoreBox type={type} homeGoals={homeGoals} awayGoals={awayGoals}/>
+            <ScoreHeader>{props.type}</ScoreHeader>
+            <ScoreBox homeGoals={props.homeGoals} awayGoals={props.awayGoals}/>
         </StyledScoreContainer>
     );
 }

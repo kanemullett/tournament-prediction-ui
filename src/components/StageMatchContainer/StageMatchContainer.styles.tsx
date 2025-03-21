@@ -14,18 +14,3 @@ export const SectionHeader = styled.span`
     text-transform: uppercase;
     margin-bottom: 4px;
 `;
-
-export const MatchSection = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    column-gap: 4vw;
-    row-gap: 4vh;
-`
-
-export const Hello = styled.div`
-      display: flex;
-      flex-direction: column;
-      row-gap: 3vh;
-    `
-

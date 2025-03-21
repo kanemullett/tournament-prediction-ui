@@ -4,14 +4,14 @@ import TeamBadge from '../TeamBadge/TeamBadge.tsx';
 import { MatchHeader } from '../MatchCard/MatchCard.styles.tsx';
 
 interface IMatchTeam {
-    team: Team
+    team?: Team
 }
 
-const MatchTeam: React.FC<IMatchTeam> = ({ team }) => {
+const MatchTeam = (props: IMatchTeam) => {
     return (
         <StyledMatchTeam>
-            <MatchHeader>{team?.name}</MatchHeader>
-            <TeamBadge imagePath={team?.imagePath}/>
+            <MatchHeader>{props.team?.name}</MatchHeader>
+            <TeamBadge imagePath={props.team?.imagePath}/>
         </StyledMatchTeam>
     );
 }

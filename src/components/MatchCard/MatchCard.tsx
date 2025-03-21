@@ -1,18 +1,19 @@
 import React from 'react';
 import MatchTeamSection from '../MatchTeamSection/MatchTeamSection.tsx';
-import { ButtonContainer, MatchHeader, MatchSubheader, DetailsButton, ScoreBar, StyledMatchCard } from './MatchCard.styles.tsx';
-import ScoreContainer from '../ScoreContainer/ScoreContainer.tsx';
+import { MatchHeader, MatchSubheader, StyledMatchCard } from './MatchCard.styles.tsx';
 import PointsIndicator from '../PointsIndicator/PointsIndicator.tsx';
+import MatchButtonContainer from '../MatchButtonContainer/MatchButtonContainer.tsx';
+import MatchScoreBar from '../MatchScoreBar/MatchScoreBar.tsx';
 
 interface IMatchCard {
     match: Match
 }
 
-const MatchCard: React.FC<IMatchCard> = ({ match }) => {
+const MatchCard = (props: IMatchCard) => {
     let formattedDate = "Kickoff Not Set";
 
-    if (match.kickoff != null) {
-        const date = new Date(match.kickoff);
+    if (props.match.kickoff != null) {
+        const date = new Date(props.match.kickoff);
 
         formattedDate = new Intl.DateTimeFormat("en-GB", {
             day: "numeric",   
@@ -26,28 +27,23 @@ const MatchCard: React.FC<IMatchCard> = ({ match }) => {
     }
 
     let cardHeader: string = "Matchday"
-    if (match.group != null) {
-        cardHeader = match.group.name
+    if (props.match.group != null) {
+        cardHeader = props.match.group.name
     }
 
-    if (match.round != null) {
-        cardHeader = match.round.name
+    if (props.match.round != null) {
+        cardHeader = props.match.round.name
     }
 
     return (
         <StyledMatchCard>
             <MatchHeader>{cardHeader}</MatchHeader>
             <MatchSubheader>{formattedDate}</MatchSubheader>
-            <MatchTeamSection key={match.id} homeTeam={match?.homeTeam} awayTeam={match?.awayTeam} />
+            <MatchTeamSection homeTeam={props.match.homeTeam} awayTeam={props.match.awayTeam} />
 
-            <ButtonContainer>
-                <DetailsButton>More Info</DetailsButton>
-            </ButtonContainer>
+            <MatchButtonContainer />
 
-            <ScoreBar>
-                <ScoreContainer type={"prediction"} homeGoals={match?.prediction?.homeGoals} awayGoals={match?.prediction?.awayGoals}/>
-                <ScoreContainer type={"result"} homeGoals={match?.result?.homeGoals} awayGoals={match?.result?.awayGoals}/>
-            </ScoreBar>
+            <MatchScoreBar prediction={props.match.prediction} result={props.match.result} />
 
             <PointsIndicator points={1} size={80} strokeWidth={6} />
         </StyledMatchCard>

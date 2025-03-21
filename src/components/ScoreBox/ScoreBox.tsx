@@ -2,15 +2,15 @@ import React from 'react';
 import { StyledScoreBox } from "./ScoreBox.styles.tsx";
 
 interface IScoreBox {
-    homeGoals: number
-    awayGoals: number
+    homeGoals?: number
+    awayGoals?: number
 }
 
-const ScoreBox: React.FC<IScoreBox> = ({ homeGoals, awayGoals }) => {
+const ScoreBox = (props: IScoreBox) => {
     return (
         <StyledScoreBox>
-            <span>{homeGoals}</span>
-            <span>{awayGoals}</span>
+            <span>{props.homeGoals}</span>
+            <span>{props.awayGoals}</span>
         </StyledScoreBox>
     );
 }

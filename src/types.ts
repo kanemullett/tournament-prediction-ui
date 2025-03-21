@@ -12,16 +12,18 @@ type Match = {
     kickoff?: Date;
     homeTeam?: Team;
     awayTeam?: Team;
-    groupMatchDay: number,
-    group?: Group,
-    round?: Round
+    groupMatchDay: number;
+    group?: Group;
+    round?: Round;
+    prediction?: MatchOutcome;
+    result?: MatchOutcome;
 };
 
 type Team = {
-    id: string,
-    name: string,
-    imagePath: string,
-    confederation: Confederation
+    id: string;
+    name: string;
+    imagePath: string;
+    confederation: Confederation;
 };
 
 type Group = {
@@ -37,4 +39,17 @@ type Round = {
     twoLegs: boolean;
     extraTime: boolean;
     awayGoals: boolean;
+}
+
+type MatchOutcome = {
+    homeGoals: number;
+    awayGoals: number;
+    afterExtraTime: boolean;
+    afterPenalties: boolean;
+    penaltiesWinner?: Winner;
+}
+
+enum Winner {
+    HOME,
+    AWAY
 }

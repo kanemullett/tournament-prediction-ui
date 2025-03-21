@@ -1,10 +1,10 @@
 import React from "react";
 import { StyledPointsIndicator } from "./PointsIndicator.styles.tsx";
 
-interface PointsIndicatorProps {
+interface IPointsIndicator {
   points: 0 | 1 | 3; // Restrict to only valid values
-  size?: number; // Diameter of the circle
-  strokeWidth?: number; // Thickness of the ring
+  size: number; // Diameter of the circle
+  strokeWidth: number; // Thickness of the ring
 }
 
 const getFillPercentage = (points: 0 | 1 | 3): number => {
@@ -13,58 +13,58 @@ const getFillPercentage = (points: 0 | 1 | 3): number => {
     return 0;
   };
 
-const PointsIndicator: React.FC<PointsIndicatorProps> = ({ points, size = 50, strokeWidth = 6 }) => {
-  const radius = (size - strokeWidth) / 2; // Calculate radius based on size
+const PointsIndicator = (props: IPointsIndicator) => {
+  const radius = (props.size - props.strokeWidth) / 2; // Calculate radius based on size
   const circumference = 2 * Math.PI * radius; // Full perimeter of the circle
 
   // Map points to a percentage of the ring
-  const fillPercentage = getFillPercentage(points);
+  const fillPercentage = getFillPercentage(props.points);
   const strokeDashoffset = circumference * (1 - fillPercentage); // Adjust fill level
 
   return (
     <StyledPointsIndicator>
-        <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+        <svg width={props.size} height={props.size} viewBox={`0 0 ${props.size} ${props.size}`}>
         {/* Background Circle */}
         <circle
-            cx={size / 2}
-            cy={size / 2}
+            cx={props.size / 2}
+            cy={props.size / 2}
             r={radius}
             fill="none"
             stroke="#ddd"
-            strokeWidth={strokeWidth}
+            strokeWidth={props.strokeWidth}
         />
         {/* Foreground Progress Circle */}
-        {points > 0 && (
+        {props.points > 0 && (
             <circle
-            cx={size / 2}
-            cy={size / 2}
+            cx={props.size / 2}
+            cy={props.size / 2}
             r={radius}
             fill="none"
             stroke="var(--primary-color)"
-            strokeWidth={strokeWidth}
+            strokeWidth={props.strokeWidth}
             strokeDasharray={circumference}
             strokeDashoffset={strokeDashoffset}
             strokeLinecap="round"
-            transform={`rotate(-90 ${size / 2} ${size / 2})`} // Rotate to start from the top
+            transform={`rotate(-90 ${props.size / 2} ${props.size / 2})`} // Rotate to start from the top
             />
         )}
         {/* Points Number */}
         <text
             x="50%"
             y="42%"  // Adjusted upwards for better spacing
-            fontSize={size / 3}
+            fontSize={props.size / 3}
             fontWeight="bold"
             textAnchor="middle"
             dominantBaseline="middle"
             fill="#333"
         >
-            {points}
+            {props.points}
         </text>
         {/* "PTS" Label */}
         <text
             x="50%"
             y="65%"  // Moved lower to avoid overlap
-            fontSize={size / 6} // Slightly smaller for better fit
+            fontSize={props.size / 6} // Slightly smaller for better fit
             fontWeight="bold"
             textAnchor="middle"
             dominantBaseline="middle"

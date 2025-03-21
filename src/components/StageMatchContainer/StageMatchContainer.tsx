@@ -1,21 +1,17 @@
 import React from "react";
-import { MatchSection, SectionHeader, StyledStageMatchContainer } from "./StageMatchContainer.styles.tsx";
-import MatchCard from "../MatchCard/MatchCard.tsx";
+import { SectionHeader, StyledStageMatchContainer } from "./StageMatchContainer.styles.tsx";
+import MatchGrid from "../MatchGrid/MatchGrid.tsx";
 
 interface IStageMatchContainer {
     stageName: string;
     matches: Match[];
 }
 
-const StageMatchContainer: React.FC<IStageMatchContainer> = ({ stageName, matches }) => {
+const StageMatchContainer = (props: IStageMatchContainer) => {
     return (
         <StyledStageMatchContainer>
-            <SectionHeader>{stageName}</SectionHeader>
-            <MatchSection>
-                {matches.map((match) => (
-                    <MatchCard key={match.id} match={match} />
-                ))}
-            </MatchSection>
+            <SectionHeader>{props.stageName}</SectionHeader>
+            <MatchGrid matches={props.matches} />
         </StyledStageMatchContainer>
       );
 }
