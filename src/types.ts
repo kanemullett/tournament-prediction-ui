@@ -9,12 +9,12 @@ enum Confederation {
 
 type Match = {
     id: string;
-    kickoff: Date;
-    homeTeam: Team;
-    awayTeam: Team;
+    kickoff?: Date;
+    homeTeam?: Team;
+    awayTeam?: Team;
     groupMatchDay: number,
-    groupId: string,
-    roundId: string
+    group?: Group,
+    round?: Round
 };
 
 type Team = {
@@ -23,3 +23,18 @@ type Team = {
     imagePath: string,
     confederation: Confederation
 };
+
+type Group = {
+    id: string;
+    name: string;
+}
+
+type Round = {
+    id: string;
+    name: string;
+    teamCount: number;
+    roundOrder: number;
+    twoLegs: boolean;
+    extraTime: boolean;
+    awayGoals: boolean;
+}

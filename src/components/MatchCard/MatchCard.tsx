@@ -1,6 +1,6 @@
 import React from 'react';
 import MatchTeamSection from '../MatchTeamSection/MatchTeamSection.tsx';
-import { ButtonContainer, MatchHeader, MatchSubheader, OpenMatchButton, DetailsButton, ScoreBar, StyledMatchCard } from './MatchCard.styles.tsx';
+import { ButtonContainer, MatchHeader, MatchSubheader, DetailsButton, ScoreBar, StyledMatchCard } from './MatchCard.styles.tsx';
 import ScoreContainer from '../ScoreContainer/ScoreContainer.tsx';
 import PointsIndicator from '../PointsIndicator/PointsIndicator.tsx';
 

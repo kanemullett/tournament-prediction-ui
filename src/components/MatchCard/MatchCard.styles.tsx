@@ -12,6 +12,7 @@ export const StyledMatchCard = styled.div`
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     padding: 20px;
     transition: box-shadow 0.3s ease-in-out;
+    min-width: fit-content;
 
     &:hover {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
@@ -56,19 +57,6 @@ export const DetailsButton = styled.button`
         background-color: var(--primary-color);
         color: #333
     }
-`;
-
-// Hollow button with black border
-export const OpenMatchButton = styled.button`
-    background-color: transparent;
-    color: #333;
-    font-size: 0.9rem;
-    font-weight: bold;
-    padding: 8px 14px;
-    border: 2px solid #333;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.3s, color 0.3s;
 `;
 
 export const ScoreBar = styled.div`
