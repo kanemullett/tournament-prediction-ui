@@ -11,7 +11,7 @@ const MatchScoreBar = (props: IMatchScoreBar) => {
     return (
         <StyledMatchScoreBar>
             <ScoreContainer type={"prediction"} homeGoals={props.prediction?.homeGoals} awayGoals={props.prediction?.awayGoals}/>
-            <ScoreContainer type={"result"} homeGoals={props.result?.homeGoals} awayGoals={props.result?.awayGoals}/>
+            {props.result != null && <ScoreContainer type={"result"} homeGoals={props.result?.homeGoals} awayGoals={props.result?.awayGoals}/>}
         </StyledMatchScoreBar>
     );
 }

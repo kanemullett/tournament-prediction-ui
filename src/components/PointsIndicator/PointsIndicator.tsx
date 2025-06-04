@@ -2,12 +2,12 @@ import React from "react";
 import { StyledPointsIndicator } from "./PointsIndicator.styles.tsx";
 
 interface IPointsIndicator {
-  points: 0 | 1 | 3; // Restrict to only valid values
+  points?: 0 | 1 | 3; // Restrict to only valid values
   size: number; // Diameter of the circle
   strokeWidth: number; // Thickness of the ring
 }
 
-const getFillPercentage = (points: 0 | 1 | 3): number => {
+const getFillPercentage = (points: 0 | 1 | 3 | undefined): number => {
     if (points === 3) return 1;
     if (points === 1) return 0.5;
     return 0;
@@ -18,7 +18,7 @@ const PointsIndicator = (props: IPointsIndicator) => {
   const circumference = 2 * Math.PI * radius; // Full perimeter of the circle
 
   // Map points to a percentage of the ring
-  const fillPercentage = getFillPercentage(props.points);
+  const fillPercentage = getFillPercentage(props?.points);
   const strokeDashoffset = circumference * (1 - fillPercentage); // Adjust fill level
 
   return (
@@ -34,7 +34,7 @@ const PointsIndicator = (props: IPointsIndicator) => {
             strokeWidth={props.strokeWidth}
         />
         {/* Foreground Progress Circle */}
-        {props.points > 0 && (
+        {props?.points > 0 && (
             <circle
             cx={props.size / 2}
             cy={props.size / 2}

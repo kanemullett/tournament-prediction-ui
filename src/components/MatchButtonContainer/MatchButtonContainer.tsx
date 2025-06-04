@@ -3,7 +3,7 @@ import { DetailsButton } from "./MatchButtonContainer.styles.tsx";
 
 const MatchButtonContainer = () => {
     return (
-        <DetailsButton>More Info</DetailsButton>
+        <DetailsButton>Expand</DetailsButton>
     );
 }
 

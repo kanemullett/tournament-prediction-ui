@@ -45,7 +45,7 @@ const MatchCard = (props: IMatchCard) => {
 
             <MatchScoreBar prediction={props.match.prediction} result={props.match.result} />
 
-            <PointsIndicator points={1} size={80} strokeWidth={6} />
+            {props.match.result != null && <PointsIndicator points={props.match.points} size={80} strokeWidth={6} />}
         </StyledMatchCard>
     );
 }

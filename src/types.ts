@@ -7,6 +7,14 @@ enum Confederation {
     UEFA
 }
 
+type Tournament = {
+    id: string;
+    name: string;
+    year: number;
+    confederation?: Confederation;
+    templateId: string;
+}
+
 type Match = {
     id: string;
     kickoff?: Date;
@@ -17,6 +25,7 @@ type Match = {
     round?: Round;
     prediction?: MatchOutcome;
     result?: MatchOutcome;
+    points?: 0 | 1 | 3
 };
 
 type Team = {

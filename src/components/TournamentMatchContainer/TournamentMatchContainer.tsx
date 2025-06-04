@@ -8,11 +8,12 @@ interface ITournamentMatchContainer {
 
 const TournamentMatchContainer = (props: ITournamentMatchContainer) => {
     const groups: Group[] = [...new Map(
-        (
-          props.matches.map((match) => match.group)
-          .filter((group): group is Group => group !== undefined)
-        ).map(group => [group.id, group])
-      ).values()];
+      props.matches
+        .map((match) => match.group)
+        .filter((group): group is Group => group !== undefined)
+        .map(group => [group.id, group])
+    ).values()]
+    .sort((a, b) => a.name.localeCompare(b.name));
   
       const rounds: Round[] = [...new Map(
         (
