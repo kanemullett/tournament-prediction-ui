@@ -3,6 +3,7 @@ import { useMatches } from "../hooks/useMatches.ts";
 import { useParams } from 'react-router-dom';
 import TournamentMatchContainer from '../components/TournamentMatchContainer/TournamentMatchContainer.tsx';
 import { useTournament } from '../hooks/useTournament.ts';
+import PageTemplate from './PageTemplate.tsx';
 
 const Matches = () => {
     const { tournamentId } = useParams<{ tournamentId: string }>();
@@ -15,10 +16,10 @@ const Matches = () => {
     if (error) return <p>Error loading matches</p>;
 
     return (
-        <>
+        <PageTemplate title='hello'>
           <h1>{tournament?.name}</h1>
           <TournamentMatchContainer matches={matches} />
-        </>
+        </PageTemplate>
       );
 }
 

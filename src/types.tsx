@@ -1,18 +1,18 @@
-enum Confederation {
-    AFC,
-    CAF,
-    CONCACAF,
-    CONMEBOL,
-    OFC,
-    UEFA
+export enum Confederation {
+    AFC = "AFC",
+    CAF = "CAF",
+    CONCACAF = "CONCACAF",
+    CONMEBOL = "CONMEBOL",
+    OFC = "OFC",
+    UEFA = "UEFA"
 }
 
-type Tournament = {
-    id: string;
+export type Tournament = {
+    id?: string;
     name: string;
     year: number;
-    confederation?: Confederation;
-    templateId: string;
+    confederation?: Confederation | null;
+    templateId?: string;
 }
 
 type Match = {

@@ -11,3 +11,19 @@ export const getTournamentById = async (tournamentId: string): Promise<Tournamen
 
     return data;
 }
+
+export const createTournaments = async (tournaments: Tournament[]): Promise<Tournament[]> => {
+    let route = `/tournaments`;
+
+    const { data } = await apiClient.post(
+        route,
+        JSON.stringify(tournaments),
+        {
+            headers: {
+                "auth-username": "kanemullett"
+            }
+        }
+    );
+
+    return data;
+}
