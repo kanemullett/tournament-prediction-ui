@@ -5,17 +5,9 @@ export enum Confederation {
     CONMEBOL = "CONMEBOL",
     OFC = "OFC",
     UEFA = "UEFA"
-}
+};
 
-export type Tournament = {
-    id?: string;
-    name: string;
-    year: number;
-    confederation?: Confederation | null;
-    templateId?: string;
-}
-
-type Match = {
+export type Match = {
     id: string;
     kickoff?: Date;
     homeTeam?: Team;
@@ -26,6 +18,22 @@ type Match = {
     prediction?: MatchOutcome;
     result?: MatchOutcome;
     points?: 0 | 1 | 3
+};
+
+export type LeagueTemplate = {
+    id?: string;
+    name: string;
+    groupCount: number;
+    teamsPerGroup: number;
+    homeAndAway: boolean;
+};
+
+export type Tournament = {
+    id?: string;
+    name: string;
+    year: number;
+    confederation?: Confederation | null;
+    templateId?: string;
 };
 
 type Team = {

@@ -1,3 +1,4 @@
+import { Match } from "../types.tsx";
 import apiClient from "./apiClient.ts"
 
 export const getMatches = async (tournamentId: string, groupId: string | null, groupMatchDay: number | null, roundId: string | null): Promise<Match[]> => {

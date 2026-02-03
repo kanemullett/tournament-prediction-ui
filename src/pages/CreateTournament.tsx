@@ -1,15 +1,19 @@
-import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, Step, StepLabel, Stepper, TextField, Typography } from "@mui/material";
-import { useState } from "react";
-import { Confederation, Tournament } from "../types.tsx";
+import { Box, Button, Card, Divider, FormControl, IconButton, InputLabel, MenuItem, Select, SelectChangeEvent, Step, StepLabel, Stepper, TextField, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import { ChangeEvent, useState } from "react";
+import { Confederation, LeagueTemplate, Tournament } from "../types.tsx";
 import DeleteIcon from '@mui/icons-material/Delete';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import SportsMmaIcon from '@mui/icons-material/SportsMma';
 import JoinInnerIcon from '@mui/icons-material/JoinInner';
 import PageTemplate from "./PageTemplate.tsx";
+import { useLeagueTemplates } from "../hooks/useLeagueTemplates.ts";
 
 const steps = ["Tournament Details", "League Phase Set-up", "Knockout Phase Set-up", "Confirmation"]
 
 const CreateTournament = () => {
+    const { data: leagueTemplates = [], error, isLoading } = useLeagueTemplates();
+
     const [activeStep, setActiveStep] = useState(0);
     const [skipped, setSkipped] = useState<{
         [k: number]: boolean
@@ -23,6 +27,7 @@ const CreateTournament = () => {
     const [format, setFormat] = useState<'league' | 'knockout' | 'both' | null>();
     const [hovered, setHovered] = useState<string | null>(null);
     const [tournament, setTournament] = useState<Tournament | null>(null);
+    const [leagueTemplate, setLeagueTemplate] = useState<LeagueTemplate | null>(null);
 
     const buttons = [
         { 
@@ -134,6 +139,12 @@ const CreateTournament = () => {
             return true;
         }
         return false;
+    }
+
+    const handleLeagueTemplateChange = (event: SelectChangeEvent) => {
+        const selected = leagueTemplates.find((template) => template.id === event.target.value) || null;
+        console.log(JSON.stringify(selected));
+        setLeagueTemplate(selected);
     }
 
     return (
@@ -251,13 +262,30 @@ const CreateTournament = () => {
                             </Box>
                         )}
                         {activeStep === 1 && (
-                            <h1>Step 2</h1>
+                            <Box component="form" sx={{ display: "flex", flexDirection: "column", gap: 2, maxWidth: 500, mx: "auto" }}>
+                                <FormControl fullWidth>
+                                    <InputLabel>League Template</InputLabel>
+                                    <Select
+                                        value={leagueTemplate?.id}
+                                        label="League Template"
+                                        onChange={handleLeagueTemplateChange}
+                                        displayEmpty
+                                        variant="standard"
+                                    >
+                                        {leagueTemplates.map((template) => (
+                                            <MenuItem key={template.id} value={template.id}>
+                                                {template.name}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </Box>
                         )}
                         {activeStep === 2 && (
-                            <h1>Step 3</h1>
+                            <h1>Step 3 - Left</h1>
                         )}
                         {activeStep === 3 && (
-                            <h1>Step 4</h1>
+                            <h1>Step 4 - Left</h1>
                         )}
                     </div>
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2, justifyContent: 'center', marginTop: 2}}>
@@ -320,13 +348,80 @@ const CreateTournament = () => {
                         </Box>
                     )}
                     {activeStep === 1 && (
-                        <h1>Step 2</h1>
+                        <>
+                            {leagueTemplate !== null && (
+                                <Grid sx={{ display: "flex", flexDirection: "column", gap: 2, maxWidth: 500, mx: "auto" }}>
+                                {Array.from({ length: leagueTemplate.groupCount }).map((_, groupI) => (
+                                    <Grid size={{ xs: 12, sm: 6 }} key={groupI}>
+                                        <Card
+                                            variant="outlined"
+                                            sx={{
+                                            p: 2,
+                                            minHeight: 120,
+                                            borderRadius: 2,
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            backgroundColor: '#f4f6f8',
+                                            boxShadow: 1
+                                            }}
+                                        >
+                                            <Typography
+                                                variant="subtitle1"
+                                                fontWeight="bold"
+                                                gutterBottom
+                                                sx={{ fontFamily: 'var(--font-family)' }}
+                                            >
+                                                Group {groupI + 1}
+                                            </Typography>
+
+                                            <Typography
+                                                variant="caption"
+                                                color="text.secondary"
+                                                gutterBottom
+                                                sx={{ fontFamily: 'var(--font-family)' }}
+                                            >
+                                                {leagueTemplate.teamsPerGroup} teams
+                                            </Typography>
+
+                                            <Box
+                                                display="grid"
+                                                gridTemplateColumns="repeat(2, 1fr)"
+                                                gap={1}
+                                                mt={1}
+                                                width="60px" // ⬅️ adjust this as needed
+                                            >
+                                                {Array.from({ length: leagueTemplate.teamsPerGroup }).map((_, teamI) => (
+                                                    <Box
+                                                        key={teamI}
+                                                        sx={{
+                                                            width: 24,
+                                                            height: 24,
+                                                            borderRadius: '50%',
+                                                            backgroundColor: 'primary.main',
+                                                            color: 'white',
+                                                            fontSize: 12,
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            justifyContent: 'center',
+                                                        }}
+                                                    >
+                                                        {teamI + 1}
+                                                    </Box>
+                                                ))}
+                                            </Box>
+                                        </Card>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                            )}
+                        </>
                     )}
                     {activeStep === 2 && (
-                        <h1>Step 3</h1>
+                        <h1>Step 3 - Right</h1>
                     )}
                     {activeStep === 3 && (
-                        <h1>Step 4</h1>
+                        <h1>Step 4 - Right</h1>
                     )}
                 </Box>
             </Box>

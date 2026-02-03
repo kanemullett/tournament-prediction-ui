@@ -4,6 +4,7 @@ import { MatchHeader, MatchSubheader, StyledMatchCard } from './MatchCard.styles
 import PointsIndicator from '../PointsIndicator/PointsIndicator.tsx';
 import MatchButtonContainer from '../MatchButtonContainer/MatchButtonContainer.tsx';
 import MatchScoreBar from '../MatchScoreBar/MatchScoreBar.tsx';
+import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
 
 interface IMatchCard {
     match: Match
@@ -36,17 +37,36 @@ const MatchCard = (props: IMatchCard) => {
     }
 
     return (
-        <StyledMatchCard>
-            <MatchHeader>{cardHeader}</MatchHeader>
-            <MatchSubheader>{formattedDate}</MatchSubheader>
-            <MatchTeamSection homeTeam={props.match.homeTeam} awayTeam={props.match.awayTeam} />
+        // <StyledMatchCard>
+        //     <MatchHeader>{cardHeader}</MatchHeader>
+        //     <MatchSubheader>{formattedDate}</MatchSubheader>
+        //     <MatchTeamSection homeTeam={props.match.homeTeam} awayTeam={props.match.awayTeam} />
 
-            <MatchButtonContainer />
+        //     <MatchButtonContainer />
 
-            <MatchScoreBar prediction={props.match.prediction} result={props.match.result} />
+        //     <MatchScoreBar prediction={props.match.prediction} result={props.match.result} />
 
-            {props.match.result != null && <PointsIndicator points={props.match.points} size={80} strokeWidth={6} />}
-        </StyledMatchCard>
+        //     {props.match.result != null && <PointsIndicator points={props.match.points} size={80} strokeWidth={6} />}
+        // </StyledMatchCard>
+        <Card sx={{minWidth: "30%"}}>
+            <CardContent>
+                <Typography sx={{fontSize: "1.2rem", fontWeight: "bold", color: "#333", textTransform: "uppercase"}}>{cardHeader}</Typography>
+                {/* <MatchHeader>{cardHeader}</MatchHeader> */}
+                <Typography gutterBottom sx={{fontSize: "0.9rem", color: "#777"}}>{formattedDate}</Typography>
+                {/* <MatchSubheader>{formattedDate}</MatchSubheader> */}
+                <MatchTeamSection homeTeam={props.match.homeTeam} awayTeam={props.match.awayTeam} />
+
+                {/* <MatchButtonContainer /> */}
+
+                <CardActions>
+                    <Button size="small">EXPAND</Button>
+                </CardActions>
+
+                <MatchScoreBar prediction={props.match.prediction} result={props.match.result} />
+
+                {props.match.result != null && <PointsIndicator points={props.match.points} size={80} strokeWidth={6} />}
+            </CardContent>
+        </Card>
     );
 }
 
