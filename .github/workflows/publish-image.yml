@@ -53,6 +53,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            REACT_APP_PREDICTOR_API_URL=http://api.providentia.kanemullett.com
+            REACT_APP_PREDICTOR_API_URL=https://api.providentia.kanemullett.com
           cache-from: type=gha
           cache-to: type=gha,mode=max
