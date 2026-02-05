@@ -1,3 +1,4 @@
+import { Match } from "../types.tsx";
 import apiClient from "./apiClient.ts"
 
 export const getMatches = async (tournamentId: string, groupId: string | null, groupMatchDay: number | null, roundId: string | null): Promise<Match[]> => {
@@ -13,7 +14,11 @@ export const getMatches = async (tournamentId: string, groupId: string | null, g
         route = `${route}?${queryParams.join("&")}`
     }
 
-    const { data } = await apiClient.get(route);
+    const { data } = await apiClient.get(route, {
+        headers: {
+            "auth-username": "kanemullett",
+        }
+    });
 
     return data;
 }

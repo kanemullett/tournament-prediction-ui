@@ -1,16 +1,20 @@
 import React from 'react';
 import MatchTeamSection from '../MatchTeamSection/MatchTeamSection.tsx';
-import { ButtonContainer, MatchHeader, MatchSubheader, OpenMatchButton, QuickPredictButton, StyledMatchCard } from './MatchCard.styles.tsx';
+import { MatchHeader, MatchSubheader, StyledMatchCard } from './MatchCard.styles.tsx';
+import PointsIndicator from '../PointsIndicator/PointsIndicator.tsx';
+import MatchButtonContainer from '../MatchButtonContainer/MatchButtonContainer.tsx';
+import MatchScoreBar from '../MatchScoreBar/MatchScoreBar.tsx';
+import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
 
 interface IMatchCard {
     match: Match
 }
 
-const MatchCard: React.FC<IMatchCard> = ({ match }) => {
+const MatchCard = (props: IMatchCard) => {
     let formattedDate = "Kickoff Not Set";
 
-    if (match.kickoff != null) {
-        const date = new Date(match.kickoff);
+    if (props.match.kickoff != null) {
+        const date = new Date(props.match.kickoff);
 
         formattedDate = new Intl.DateTimeFormat("en-GB", {
             day: "numeric",   
@@ -23,17 +27,46 @@ const MatchCard: React.FC<IMatchCard> = ({ match }) => {
         .replace(" at ", " - ");
     }
 
-    return (
-        <StyledMatchCard>
-            <MatchHeader>Group A</MatchHeader>
-            <MatchSubheader>{formattedDate}</MatchSubheader>
-            <MatchTeamSection key={match.id} homeTeam={match?.homeTeam} awayTeam={match?.awayTeam} />
+    let cardHeader: string = "Matchday"
+    if (props.match.group != null) {
+        cardHeader = props.match.group.name
+    }
 
-            <ButtonContainer>
-                <QuickPredictButton>Predict</QuickPredictButton>
-                <OpenMatchButton>More</OpenMatchButton>
-            </ButtonContainer>
-        </StyledMatchCard>
+    if (props.match.round != null) {
+        cardHeader = props.match.round.name
+    }
+
+    return (
+        // <StyledMatchCard>
+        //     <MatchHeader>{cardHeader}</MatchHeader>
+        //     <MatchSubheader>{formattedDate}</MatchSubheader>
+        //     <MatchTeamSection homeTeam={props.match.homeTeam} awayTeam={props.match.awayTeam} />
+
+        //     <MatchButtonContainer />
+
+        //     <MatchScoreBar prediction={props.match.prediction} result={props.match.result} />
+
+        //     {props.match.result != null && <PointsIndicator points={props.match.points} size={80} strokeWidth={6} />}
+        // </StyledMatchCard>
+        <Card sx={{minWidth: "30%"}}>
+            <CardContent>
+                <Typography sx={{fontSize: "1.2rem", fontWeight: "bold", color: "#333", textTransform: "uppercase"}}>{cardHeader}</Typography>
+                {/* <MatchHeader>{cardHeader}</MatchHeader> */}
+                <Typography gutterBottom sx={{fontSize: "0.9rem", color: "#777"}}>{formattedDate}</Typography>
+                {/* <MatchSubheader>{formattedDate}</MatchSubheader> */}
+                <MatchTeamSection homeTeam={props.match.homeTeam} awayTeam={props.match.awayTeam} />
+
+                {/* <MatchButtonContainer /> */}
+
+                <CardActions>
+                    <Button size="small">EXPAND</Button>
+                </CardActions>
+
+                <MatchScoreBar prediction={props.match.prediction} result={props.match.result} />
+
+                {props.match.result != null && <PointsIndicator points={props.match.points} size={80} strokeWidth={6} />}
+            </CardContent>
+        </Card>
     );
 }
 

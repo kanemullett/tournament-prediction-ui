@@ -3,16 +3,16 @@ import { StyledMatchCard } from './MatchTeamSection.styles.tsx';
 import MatchTeam from '../MatchTeam/MatchTeam.tsx';
 
 interface IMatchTeamSection {
-    homeTeam: Team
-    awayTeam: Team
+    homeTeam?: Team
+    awayTeam?: Team
 }
 
-const MatchTeamSection: React.FC<IMatchTeamSection> = ({ homeTeam, awayTeam }) => {
+const MatchTeamSection = (props: IMatchTeamSection) => {
     return (
         <StyledMatchCard>
-            <MatchTeam team={homeTeam} />
+            <MatchTeam team={props.homeTeam} />
             V
-            <MatchTeam team={awayTeam} />
+            <MatchTeam team={props.awayTeam} />
         </StyledMatchCard>
     );
 }

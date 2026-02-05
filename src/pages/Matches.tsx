@@ -1,21 +1,25 @@
 import React from 'react';
 import { useMatches } from "../hooks/useMatches.ts";
-import MatchCard from '../components/MatchCard/MatchCard.tsx';
+import { useParams } from 'react-router-dom';
+import TournamentMatchContainer from '../components/TournamentMatchContainer/TournamentMatchContainer.tsx';
+import { useTournament } from '../hooks/useTournament.ts';
+import PageTemplate from './PageTemplate.tsx';
 
 const Matches = () => {
-    const { data: matches = [], error, isLoading } = useMatches("e091d1d6-1a71-446c-934a-a048423c46ec", null, null, null);
+    const { tournamentId } = useParams<{ tournamentId: string }>();
+
+    const validTournamentId = tournamentId ?? "";
+    const { data: matches = [], error, isLoading } = useMatches(validTournamentId, null, null, null);
+    const { data: tournament } = useTournament(validTournamentId);
 
     if (isLoading) return <p>Loading...</p>;
-    if (error) return <p>Error loading users</p>;
-
-    console.log(matches[0]);
+    if (error) return <p>Error loading matches</p>;
 
     return (
-        <div>
-          {matches.map((match) => (
-            <MatchCard key={match.id} match={match} />
-          ))}
-        </div>
+        <PageTemplate title='hello'>
+          <h1>{tournament?.name}</h1>
+          <TournamentMatchContainer matches={matches} />
+        </PageTemplate>
       );
 }
 

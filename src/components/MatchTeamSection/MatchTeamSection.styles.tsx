@@ -5,4 +5,5 @@ export const StyledMatchCard = styled.div`
     align-items: center;
     display: flex;
     justify-content: center;
+    margin-bottom: 12px;
 `
